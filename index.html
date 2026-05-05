@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SineArşiv</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="flex bg-[#0f0f13] h-screen overflow-hidden">
+
+    <aside id="sidebar" class="w-[260px] bg-[#16161e] border-r border-[#23232e] flex flex-col shrink-0 z-50 p-6">
+        <div class="mb-10 px-2 text-center">
+            <h1 class="text-2xl font-black text-red-600 italic tracking-tighter uppercase leading-none">SineArşiv</h1>
+            <p class="text-[10px] text-zinc-600 uppercase tracking-[3px] mt-1 font-bold">İzleme Listem</p>
+        </div>
+        
+        <nav class="flex-1 space-y-1">
+            <div onclick="filtrele('tumu')" id="btn-tumu" class="nav-item active flex items-center gap-3 p-3 rounded-xl cursor-pointer transition-all hover:bg-zinc-800 text-zinc-400 [&.active]:bg-red-600/10 [&.active]:text-red-500 [&.active]:font-bold">
+                <i data-lucide="layout-grid" class="w-5 h-5"></i> Tümü
+            </div>
+            <div onclick="filtrele('izlenecekler')" id="btn-izlenecekler" class="nav-item flex items-center gap-3 p-3 rounded-xl cursor-pointer transition-all hover:bg-zinc-800 text-zinc-400 [&.active]:bg-red-600/10 [&.active]:text-red-500 [&.active]:font-bold">
+                <i data-lucide="clock" class="w-5 h-5"></i> İzlenecekler
+            </div>
+            <div onclick="filtrele('izlenenler')" id="btn-izlenenler" class="nav-item flex items-center gap-3 p-3 rounded-xl cursor-pointer transition-all hover:bg-zinc-800 text-zinc-400 [&.active]:bg-red-600/10 [&.active]:text-red-500 [&.active]:font-bold">
+                <i data-lucide="check-circle" class="w-5 h-5"></i> İzlenenler
+            </div>
+            <div onclick="filtrele('favoriler')" id="btn-favoriler" class="nav-item flex items-center gap-3 p-3 rounded-xl cursor-pointer transition-all hover:bg-zinc-800 text-zinc-400 [&.active]:bg-red-600/10 [&.active]:text-red-500 [&.active]:font-bold">
+                <i data-lucide="heart" class="w-5 h-5"></i> Favoriler
+            </div>
+        </nav>
+
+        <div class="bg-zinc-900/40 border border-[#23232e] rounded-3xl p-5 mb-4 space-y-4">
+            <div class="border-b border-zinc-800/50 pb-3">
+                <p class="text-[9px] text-zinc-500 font-extrabold uppercase italic tracking-widest">Toplam Arşiv</p>
+                <div class="text-white font-black text-xl flex items-baseline gap-1"><span id="count">0</span><span class="text-[10px] text-zinc-600 pl-1">ESER</span></div>
+            </div>
+            <div class="border-b border-zinc-800/50 pb-3">
+                <p class="text-[9px] text-zinc-500 font-extrabold uppercase italic tracking-widest">İzleme Süresi</p>
+                <div class="text-white font-black text-xl flex items-baseline gap-1"><span id="totalTime">0</span><span class="text-[10px] text-zinc-600 pl-1">SAAT</span></div>
+            </div>
+            <div>
+                <p class="text-[9px] text-zinc-500 font-extrabold uppercase italic tracking-widest">Ort. Puanın</p>
+                <div class="text-white font-black text-xl flex items-center gap-2"><span id="avgScore">0.0</span><i data-lucide="star" class="w-4 h-4 fill-yellow-500 text-yellow-500"></i></div>
+            </div>
+        </div>
+
+        <div onclick="ayarlarModalAc()" class="flex items-center gap-3 p-3 rounded-xl cursor-pointer transition-all hover:bg-zinc-800 border border-transparent hover:border-zinc-700 bg-zinc-900/20 text-zinc-400 mt-auto">
+            <i data-lucide="settings" class="w-5 h-5"></i> Ayarlar
+        </div>
+    </aside>
+
+    <div id="main-wrapper" class="flex-1 flex flex-col relative overflow-hidden">
+        <main id="main-content" class="flex-1 overflow-y-auto p-8 custom-scrollbar">
+            <div class="flex flex-col md:flex-row gap-6 mb-12 items-center justify-between">
+                <div class="flex flex-1 gap-4 items-center w-full relative">
+                    <div class="relative flex-1 max-w-[450px]">
+                        <i data-lucide="search" class="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 w-5 h-5 pointer-events-none"></i>
+                        <input type="text" id="searchFilter" oninput="ekraniGuncelle()" class="w-full h-12 bg-black border border-zinc-800 rounded-2xl pl-12 pr-4 text-white outline-none focus:border-red-600 transition-colors" placeholder="Arşivde ara...">
+                    </div>
+                    
+                    <div class="relative min-w-[200px]" id="sortDropdown">
+                        <button class="w-full h-12 bg-black border border-zinc-800 rounded-2xl px-4 flex items-center justify-between text-[11px] font-extrabold text-white uppercase" id="triggerBtn">
+                            <span id="sortLabel">En Yeni</span>
+                            <i data-lucide="chevron-down" class="w-4 h-4 text-zinc-500"></i>
+                        </button>
+                        <div class="absolute top-full left-0 right-0 mt-2 bg-[#16161e] border border-zinc-800 rounded-2xl overflow-hidden shadow-2xl hidden z-[100]" id="dropdownMenu">
+                            <div class="p-3 text-[11px] font-bold uppercase cursor-pointer hover:bg-zinc-800 text-zinc-400 [&.active]:text-red-500 [&.active]:bg-red-500/10 active" data-value="newest" onclick="siralaSec('newest', 'En Yeni')">En Yeni</div>
+                            <div class="p-3 text-[11px] font-bold uppercase cursor-pointer hover:bg-zinc-800 text-zinc-400 [&.active]:text-red-500 [&.active]:bg-red-500/10" data-value="myScore" onclick="siralaSec('myScore', 'Puanın (Yüksek)')">Puanın (Yüksek)</div>
+                            <div class="p-3 text-[11px] font-bold uppercase cursor-pointer hover:bg-zinc-800 text-zinc-400 [&.active]:text-red-500 [&.active]:bg-red-500/10" data-value="imdbScore" onclick="siralaSec('imdbScore', 'IMDB Puanı')">IMDB Puanı</div>
+                            <div class="p-3 text-[11px] font-bold uppercase cursor-pointer hover:bg-zinc-800 text-zinc-400 [&.active]:text-red-500 [&.active]:bg-red-500/10" data-value="alphabetical" onclick="siralaSec('alphabetical', 'İsim (A-Z)')">İsim (A-Z)</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex gap-2 w-full max-w-md items-center relative">
+                    <div class="relative flex-1">
+                        <input type="text" id="filmInput" oninput="canliArama(this.value)" class="w-full h-12 bg-black border border-zinc-800 rounded-2xl px-4 pr-12 text-white outline-none focus:border-red-600 transition-colors" placeholder="Yeni film/dizi ekle..." autocomplete="off">
+                        <div id="clearSearch" onclick="aramaTemizle()" class="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-red-500 cursor-pointer hidden">
+                            <i data-lucide="x" class="w-5 h-5"></i>
+                        </div>
+                    </div>
+                    <button id="addBtn" onclick="filmEkle()" class="h-12 px-8 bg-red-600 text-white font-black rounded-2xl hover:bg-red-700 transition-all uppercase italic shadow-lg active:scale-95">EKLE</button>
+                    <div id="searchDropdown" class="absolute top-full left-0 right-0 mt-2 bg-[#16161e] border border-zinc-800 rounded-2xl shadow-2xl overflow-y-auto max-h-[450px] z-[2000] hidden p-2"></div>
+                </div>
+            </div>
+
+            <div id="liste" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8 pb-20"></div>
+        </main>
+    </div>
+
+    <div id="detayOverlay" onclick="detayModalKapat()" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[9000] hidden flex items-end justify-center overflow-hidden">
+        <div id="detayPanel" class="w-full max-w-[1400px] h-[92vh] bg-[#1a1a24] border border-zinc-800 border-b-0 rounded-t-[40px] flex flex-col md:flex-row overflow-hidden relative mx-4 md:mx-auto shadow-[0_-25px_50px_-12px_rgba(0,0,0,0.5)]" onclick="event.stopPropagation()">
+            
+            <button onclick="detayModalKapat()" class="absolute top-6 right-6 text-zinc-500 hover:text-white z-[100] p-2 bg-zinc-900/80 rounded-full transition shadow-2xl"><i data-lucide="x" class="w-6 h-6"></i></button>
+            
+            <div class="w-full md:w-[400px] h-[300px] md:h-full relative border-r border-zinc-800 shrink-0">
+                <img id="detayPosterImg" src="" class="absolute inset-0 w-full h-full object-cover">
+                <div class="absolute top-6 left-6 bg-black/80 backdrop-blur-xl border border-white/10 rounded-2xl px-4 py-2 flex items-center gap-3 z-30 shadow-2xl">
+                    <p class="text-[10px] text-zinc-400 font-black uppercase">IMDB</p>
+                    <p id="detayIMDB" class="text-xl font-black text-white italic">0.0</p>
+                    <i data-lucide="star" class="text-yellow-500 w-4 h-4 fill-current"></i>
+                </div>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto p-8 md:p-12 flex flex-col gap-10 custom-scrollbar pb-24">
+                <div>
+                    <div class="flex justify-between items-start gap-4 mb-4">
+                        <h2 id="detayBaslik" class="text-4xl md:text-6xl font-black text-white uppercase italic leading-tight tracking-tighter">Film Adı</h2>
+                        <button id="trailerBtn" class="bg-red-600 text-white px-6 py-3 rounded-2xl flex items-center gap-2 hover:bg-red-700 transition shadow-lg shrink-0 text-xs font-black uppercase italic hidden">
+                            <i data-lucide="play" class="w-4 h-4 fill-current"></i> FRAGMAN
+                        </button>
+                    </div>
+                    <div id="detayTurListesi" class="flex flex-wrap gap-2 mb-6"></div>
+                    <p id="detaySlogan" class="text-red-500 text-sm font-bold uppercase tracking-widest italic mb-6"></p>
+                    
+                    <div id="detayInfo" class="flex items-center gap-4 text-zinc-400 text-sm uppercase tracking-[2px] font-black italic">
+                        <span id="detayTur" class="text-red-600">İÇERİK</span> • <span id="detayYil">2026</span> • <span id="detaySure">-</span>
+                    </div>
+                </div>
+
+                <div id="directorSection">
+                    <p class="text-[10px] text-zinc-500 font-black uppercase tracking-widest mb-3 italic">YÖNETMEN / YARATICI</p>
+                    <div id="directorContent"></div>
+                </div>
+
+                <div id="actorSection" class="hidden">
+                    <p class="text-[10px] text-zinc-500 font-black uppercase tracking-widest mb-6 italic border-b border-zinc-800 pb-2">Başrol Oyuncuları</p>
+                    <div id="actorList" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6"></div>
+                </div>
+
+                <div id="detayOzet" class="text-zinc-300 text-md italic leading-relaxed border-l-4 border-red-600 pl-6 bg-white/5 py-5 rounded-r-2xl"></div>
+                
+                <div id="providerSection" class="hidden">
+                    <p class="text-[10px] text-zinc-500 font-black uppercase tracking-widest mb-4 italic">Şu An Yayında</p>
+                    <div id="providerList" class="flex gap-4"></div>
+                </div>
+
+                <div id="similarSection" class="hidden border-t border-zinc-800 pt-10">
+                    <p class="text-[10px] text-zinc-500 font-black uppercase tracking-widest mb-8 italic">Buna Benzer Neler Var?</p>
+                    <div id="similarList" class="flex gap-6 overflow-x-auto pb-4 custom-scrollbar"></div>
+                </div>
+
+                <div class="max-w-md bg-zinc-900/30 p-6 rounded-3xl border border-zinc-800/50">
+                    <p class="text-white font-black flex items-center gap-2 italic text-sm uppercase mb-6">Puanım: <span id="detayPuanText" class="text-4xl text-red-600">0</span> <i data-lucide="star" class="w-6 h-6 fill-yellow-500 text-yellow-500"></i></p>
+                    <input type="range" id="detayPuanSlider" min="0" max="10" step="0.5" value="0" oninput="document.getElementById('detayPuanText').textContent=this.value" class="w-full h-2 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-red-600">
+                </div>
+
+                <div>
+                    <p class="text-white font-black mb-4 flex items-center gap-2 italic text-[11px] uppercase">Kişisel Notlarım</p>
+                    <textarea id="detayNotlar" class="w-full h-40 bg-black/50 border border-zinc-800 rounded-2xl p-6 text-zinc-300 outline-none focus:border-red-600 transition-colors resize-none" placeholder="Düşüncelerini yaz..."></textarea>
+                </div>
+
+                <div class="pt-8 border-t border-zinc-800 flex justify-end">
+                    <button onclick="detayKaydet()" class="bg-red-600 hover:bg-red-500 text-white font-black px-16 py-5 rounded-2xl transition shadow-2xl uppercase italic tracking-widest text-sm active:scale-95">Kaydet</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalOverlay" onclick="modalKapat()" class="fixed inset-0 bg-black/70 backdrop-blur-md z-[9999] hidden flex items-center justify-center p-4">
+        <div class="bg-[#16161e] border border-zinc-800 rounded-[40px] p-12 w-full max-w-md shadow-2xl flex flex-col items-center text-center transform scale-100 transition-transform" onclick="event.stopPropagation()">
+            <h2 id="modalTitle" class="text-red-600 font-black text-3xl italic uppercase mb-3">BAŞLIK</h2>
+            <p id="modalDesc" class="text-zinc-500 text-sm font-bold italic mb-10 uppercase tracking-tight"></p>
+            <div id="modalInputContainer" class="w-full hidden mb-10">
+                <input type="text" id="modalInput" class="w-full h-14 bg-black border-2 border-zinc-800 rounded-2xl px-6 text-white text-center font-bold text-lg outline-none focus:border-red-600 transition-all">
+            </div>
+            <div class="flex gap-4 w-full">
+                <button onclick="modalKapat()" class="flex-1 h-14 bg-zinc-800 hover:bg-zinc-700 text-zinc-400 font-black rounded-2xl uppercase italic transition-all active:scale-95">Vazgeç</button>
+                <button id="modalConfirmBtn" class="flex-1 h-14 bg-red-600 hover:bg-red-700 text-white font-black rounded-2xl uppercase italic shadow-lg shadow-red-600/20 transition-all active:scale-95">Onayla</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="ayarlarOverlay" onclick="ayarlarModalKapat()" class="fixed inset-0 bg-black/70 backdrop-blur-md z-[8500] hidden flex items-center justify-center p-4">
+        <div class="bg-[#16161e] border border-zinc-800 rounded-[32px] p-10 w-full max-w-lg relative shadow-2xl transform scale-100 transition-transform" onclick="event.stopPropagation()">
+            <button onclick="ayarlarModalKapat()" class="absolute top-6 right-6 text-zinc-500 hover:text-white transition p-2 bg-zinc-900 rounded-full z-[100]"><i data-lucide="x" class="w-6 h-6"></i></button>
+            <h2 class="text-4xl font-black text-red-600 mb-12 italic uppercase leading-none tracking-tighter">AYARLAR</h2>
+            <div class="space-y-4">
+                <button onclick="verileriDisaAktar()" class="w-full bg-zinc-900/50 p-6 rounded-2xl border border-zinc-800 text-left text-white hover:border-red-600 transition-all flex items-center justify-between group">
+                    <span class="font-black italic uppercase">Arşivi Dışa Aktar (.json)</span><i data-lucide="download" class="text-zinc-500 group-hover:text-red-600 transition-colors"></i>
+                </button>
+                <button onclick="document.getElementById('importInput').click()" class="w-full bg-zinc-900/50 p-6 rounded-2xl border border-zinc-800 text-left text-white hover:border-blue-600 transition-all flex items-center justify-between group">
+                    <span class="font-black italic uppercase">Arşivi İçe Aktar (.json)</span><i data-lucide="upload" class="text-zinc-500 group-hover:text-blue-600 transition-colors"></i>
+                </button>
+                <input type="file" id="importInput" class="hidden" accept=".json" onchange="verileriIceAktar(event)">
+                <button onclick="verileriSifirlaBirinciAsama()" class="w-full bg-red-600/5 p-6 rounded-2xl border border-red-900/20 text-left text-red-500 hover:bg-red-600/10 transition-all flex items-center justify-between group">
+                    <span class="font-black italic uppercase">Tüm Arşivi Sıfırla</span><i data-lucide="trash-2" class="text-red-900/50 group-hover:text-red-500 transition-colors"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

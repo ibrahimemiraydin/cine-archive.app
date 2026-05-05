@@ -1,0 +1,138 @@
+[
+  {
+    "id": 1775965909848,
+    "ad": "Gerçek Masallar",
+    "kategori": "izlenecekler",
+    "favori": false,
+    "puan": 0,
+    "not": "",
+    "apiData": {
+      "id": 10202,
+      "poster": "https://image.tmdb.org/t/p/w500/4gRrfgUKXSFt486B8lRROgE8Zj3.jpg",
+      "ozet": "Başrolünde dünya sinemasının günümüzdeki en büyük komedi yeteneklerinden biri olan Adam Sandler’ın oynadığı Gerçek Masallar'da iki küçük yeğenine anlattığı uyku öncesi hikayelerinin gizemli şekilde gerçeğe dönüşmeye başlaması üzerine hayatı sonsuza kadar değişen Skeeter Bronson adlı otel görevlisinin başına gelen macera dolu komik olaylar serisi anlatılır. Küçük afacanlara birbirinden ilginç ve çarpıcı masallar anlatan Skeeter Bronson’ın ve ailesinin yaşamı altüst olacaktır.Gerçek Masallar'ın fantastik, müthiş, heyecan verici ve göz kamaştırıcı sahnelerinin hayata geçirilmesi için film dünyasının en iyi görsel efekt, özel efekt yaratıcılarına ve dünyaca ünlü dublör yöneticilerine başvuruldu.",
+      "yil": "2008",
+      "tur": "FİLM",
+      "imdb": "6.2",
+      "runtime": 99,
+      "sure": "99 dk",
+      "slogan": "",
+      "actors": [
+        {
+          "name": "Adam Sandler",
+          "img": "https://image.tmdb.org/t/p/w500/gLkLCsQdwDDPabRhKPB25nGtKwS.jpg"
+        },
+        {
+          "name": "Keri Russell",
+          "img": "https://image.tmdb.org/t/p/w500/u81mC6vZwliDRfnX1DpdGmmex61.jpg"
+        },
+        {
+          "name": "Guy Pearce",
+          "img": "https://image.tmdb.org/t/p/w500/vTqk6Nh3WgqPubkS23eOlMAwmwa.jpg"
+        },
+        {
+          "name": "Courteney Cox",
+          "img": "https://image.tmdb.org/t/p/w500/cSOORhCRPJiwKghozXVXrOBi3Tp.jpg"
+        },
+        {
+          "name": "Lucy Lawless",
+          "img": "https://image.tmdb.org/t/p/w500/7fYfVk6jtdCWuJEo9pEqc6O2JkD.jpg"
+        },
+        {
+          "name": "Carmen Electra",
+          "img": "https://image.tmdb.org/t/p/w500/lBCUm1gGNTFI3OIjPx8maaEDXUQ.jpg"
+        }
+      ],
+      "trailer": "e-6N1NZrQAQ",
+      "similar": [
+        {
+          "name": "La Bruja",
+          "img": "https://image.tmdb.org/t/p/w500/bKqTECqyaxD19aqxtd9ynehoPtd.jpg"
+        },
+        {
+          "name": "18 Again!",
+          "img": "https://image.tmdb.org/t/p/w500/kDMgcjSNadUBmpkbMuX3u48qgI4.jpg"
+        },
+        {
+          "name": "Hayali Arkadaşlar",
+          "img": "https://image.tmdb.org/t/p/w500/6mWTze4g20LA0CktkCC6XIzAPrQ.jpg"
+        },
+        {
+          "name": "¿Quién es quién?",
+          "img": "https://image.tmdb.org/t/p/w500/o4T0QAgm9bBWaU7kHWGD3o5b4M2.jpg"
+        },
+        {
+          "name": "മൈ ഡിയർ കുട്ടിച്ചാത്തൻ 3D",
+          "img": "https://image.tmdb.org/t/p/w500/r8s7MdmOtU79olhABBx4IsjnoVW.jpg"
+        }
+      ]
+    }
+  },
+  {
+    "id": 1775956764791,
+    "ad": "Örümcek Adam 3",
+    "kategori": "izlenecekler",
+    "favori": false,
+    "puan": 0,
+    "not": "",
+    "apiData": {
+      "id": 559,
+      "poster": "https://image.tmdb.org/t/p/w500/dxAWGyDADSazvz9pfPWPjryIVoE.jpg",
+      "ozet": "Efsanevi Marvel Comics dizisine dayanan filmde, Peter Parker nihayet Mary Jane'e duyduğu tutku ile süper kahramanlık görevleri arasındaki dengeyi kurar. Ancak, ufukta belirmeye başlayan bir fırtına vardır. Peter'ın Örümcek Adam kostümü birden bire değişip siyaha dönüşerek güçlerini pekiştirmeye başlayınca, Peter da değişmeye başlar. Kostümün etkisi altındaki Peter, kibirli ve kendine aşırı güvenli biri olur; en değer verdiği kişileri ihmal etmeye başlar. Bugüne dek en korkulan iki kötü kahraman Kumadam ve Venom benzersiz güçler edinip, intikam ateşiyle yanarken, Peter en büyük savaşını kendi içinde yapmaktadır. Örümcek Adam'ın onu o yapan, onu bir kahraman yapan özelliğini, yani şefkati yeniden keşfetmesi gerekecektir.",
+      "yil": "2007",
+      "tur": "FİLM",
+      "imdb": "6.5",
+      "runtime": 195,
+      "sure": "195 dk",
+      "slogan": "Her kahraman bir seçim yapmalıdır.",
+      "actors": [
+        {
+          "name": "Tobey Maguire",
+          "img": "https://image.tmdb.org/t/p/w500/s6PwSvq6gC7PGEjIku69tPbvR8M.jpg"
+        },
+        {
+          "name": "Kirsten Dunst",
+          "img": "https://image.tmdb.org/t/p/w500/yhLKGjuiMMdbGnFrR8AREkCZcVF.jpg"
+        },
+        {
+          "name": "James Franco",
+          "img": "https://image.tmdb.org/t/p/w500/bjmAntHGiibLZixH8nTNVBzaFQn.jpg"
+        },
+        {
+          "name": "Thomas Haden Church",
+          "img": "https://image.tmdb.org/t/p/w500/74NK9HCYvNafMggSp1PAK5Nwkpe.jpg"
+        },
+        {
+          "name": "Topher Grace",
+          "img": "https://image.tmdb.org/t/p/w500/oJQxl4DG0KSCtOGrpWNhYz9gUZA.jpg"
+        },
+        {
+          "name": "Bryce Dallas Howard",
+          "img": "https://image.tmdb.org/t/p/w500/l9KTey4DqwazBkUgIEqfvMDCkaq.jpg"
+        }
+      ],
+      "trailer": "e5wUilOeOmg",
+      "similar": [
+        {
+          "name": "Fidye",
+          "img": "https://image.tmdb.org/t/p/w500/4nmOA5ZOY2VlHzwSlKY03sF2JUz.jpg"
+        },
+        {
+          "name": "Flash Gordon",
+          "img": "https://image.tmdb.org/t/p/w500/9MPf3bzsw1EtUjlXUGArFD80Y9q.jpg"
+        },
+        {
+          "name": "Flash Gordon: The Greatest Adventure of All",
+          "img": "https://image.tmdb.org/t/p/w500/rP8fqGqx1klI4hlCkkQDlC0DpKN.jpg"
+        },
+        {
+          "name": "Flesh Gordon",
+          "img": "https://image.tmdb.org/t/p/w500/qnPEdOzLW9Z7ZYGIZQUJx00ww6S.jpg"
+        },
+        {
+          "name": "Flesh Gordon Meets the Cosmic Cheerleaders",
+          "img": "https://image.tmdb.org/t/p/w500/mHdkAxWjPNjwHwMgNkC68ZBazh1.jpg"
+        }
+      ]
+    }
+  }
+]

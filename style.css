@@ -1,0 +1,29 @@
+/* style.css - KESİN ÇÖZÜM */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #0f0f13; height: 100vh; color: #cdd6f4; font-family: sans-serif; overflow: hidden; }
+
+/* KART HOVER FIX: isolation:isolate sayesinde görsel hover anında dışarı taşmaz */
+.movie-card {
+    isolation: isolate;
+    transform: translateZ(0); /* Donanım ivmelenmesi kanka */
+    backface-visibility: hidden;
+}
+.movie-card img {
+    will-change: transform, opacity; /* Tarayıcıya ön hazırlık knk */
+}
+
+/* Panel Animasyonları (JS burayı açınca transform tetiklenir) */
+#detayPanel {
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.32, 0, 0.67, 0);
+}
+#detayOverlay.open #detayPanel { transform: translateY(0); }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #23232e; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #ef4444; }
+
+/* Hidden sınıfının açılışta veya JS ile tetiklendiğinde kesinlikle gizlemesini sağlar */
+.hidden { display: none !important; }
